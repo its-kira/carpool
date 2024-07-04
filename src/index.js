@@ -18,7 +18,7 @@ const url =
 const app = express();
 
 // Emplacement du frontend
-app.use(express.static("src/public"));
+app.use(express.static("/src/public"));
 app.use(express.json());
 app.use("/", endpoints);
 

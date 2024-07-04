@@ -1,366 +1,388 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Accueil</title>
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-    />
-    <style>
-      @keyframes bounce {
-        0%,
-        100% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-5px);
-        } /* Ajustez cette valeur selon votre besoin */
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Accueil</title>
+  <link
+          rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+  />
+  <style>
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
       }
+      50% {
+        transform: translateY(-5px);
+      }
+    }
 
-      .position-marker {
-        display: inline-block;
-        font-size: 20px; /* Taille de l'emoji */
-        animation: bounce 1s infinite;
-      }
-      body {
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-        background-color: #555;
-      }
+    .position-marker {
+      display: inline-block;
+      font-size: 20px;
+      animation: bounce 1s infinite;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #555;
+      color: #f9f9f9;
+    }
 
-      .navbar {
-        background-color: #333;
-        padding: 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
+    .navbar {
+      background-color: #333;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
 
-      .logo {
-        width: 100px;
-        height: auto;
-        margin-left: 20px;
-      }
+    .logo {
+      width: 100px;
+      height: auto;
+      margin-left: 20px;
+    }
 
-      .menu-dropdown {
-        position: relative;
-        display: inline-block;
-      }
+    .menu-dropdown {
+      position: relative;
+      display: inline-block;
+    }
 
-      .dropbtn {
-        background-color: #333;
-        color: white;
-        padding: 10px;
-        font-size: 16px;
-        border: none;
-        cursor: pointer;
-      }
+    .dropbtn {
+      background-color: #333;
+      color: white;
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
 
-      .menu-dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #f9f9f9;
-        min-width: 160px;
-        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-        z-index: 1;
-      }
+    .dropbtn:hover {
+      background-color: #555;
+    }
 
-      .menu-dropdown-content a {
-        color: black;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-      }
+    .menu-dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
 
-      .menu-dropdown-content a:hover {
-        background-color: #ddd;
-      }
+    .menu-dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      transition: background-color 0.3s;
+    }
 
-      .menu-dropdown:hover .menu-dropdown-content {
-        display: block;
-      }
+    .menu-dropdown-content a:hover {
+      background-color: #ddd;
+    }
 
-      .container {
-        display: flex;
-        justify-content: space-between;
-        margin: 20px;
-      }
+    .menu-dropdown:hover .menu-dropdown-content {
+      display: block;
+    }
 
-      #map {
-        width: 45%;
-        height: 400px;
-        background-color: #424242;
-        border-radius: 10px;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-      }
+    .container {
+      display: flex;
+      justify-content: space-between;
+      margin: 20px;
+      flex-wrap: wrap;
+    }
 
-      .search-card {
-        width: 40%;
-        background-color: #424242;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-      }
+    #map {
+      width: 45%;
+      height: 400px;
+      background-color: #424242;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s;
+    }
 
-      .search-card input[type="text"],
-      .search-card input[type="datetime-local"] {
-        width: 90%;
-        margin: 10px 0;
-        padding: 10px;
-        border-radius: 5px;
-        border: none;
-      }
+    #map:hover {
+      transform: scale(1.02);
+    }
 
-      .search-card button {
-        background-color: #333;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
+    .search-card {
+      width: 45%;
+      background-color: #424242;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s;
+    }
 
-      .search-card button:hover {
-        background-color: #555;
-      }
+    .search-card:hover {
+      transform: scale(1.02);
+    }
 
-      .dev-profiles {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-        margin: 20px;
-      }
+    .search-card input[type="text"],
+    .search-card input[type="datetime-local"] {
+      width: 90%;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      background-color: #555;
+      color: #fff;
+    }
 
-      .dev-profile {
-        margin: 10px;
-        text-align: center;
-      }
+    .search-card input::placeholder {
+      color: #ddd;
+    }
 
-      .dev-profile img {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-      }
+    .search-card button {
+      background-color: #333;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
 
-      .dev-profile p {
-        margin-top: 10px;
-        font-size: 18px;
-        font-weight: bold;
-      }
+    .search-card button:hover {
+      background-color: #555;
+    }
 
-      .leaflet-pane {
-        z-index: 1000 !important;
-      }
-    </style>
-  </head>
-  <body>
-    <nav class="navbar">
-      <img
-        class="logo"
-        src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.ifa-formation.fr%2Fwp-content%2Fuploads%2F2021%2F02%2FMNS.jpg.png&f=1&nofb=1&ipt=3115b445962b26666ab6cb81332b589cfacff5c717dcdcc83d6f405904d1d077&ipo=images"
-        alt="Logo"
+    .dev-profiles {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      margin: 20px;
+    }
+
+    .dev-profile {
+      margin: 10px;
+      text-align: center;
+    }
+
+    .dev-profile img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      transition: transform 0.3s;
+    }
+
+    .dev-profile img:hover {
+      transform: scale(1.1);
+    }
+
+    .dev-profile p {
+      margin-top: 10px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .leaflet-pane {
+      z-index: 1000 !important;
+    }
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <img
+          class="logo"
+          src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.ifa-formation.fr%2Fwp-content%2Fuploads%2F2021%2F02%2FMNS.jpg.png&f=1&nofb=1&ipt=3115b445962b26666ab6cb81332b589cfacff5c717dcdcc83d6f405904d1d077&ipo=images"
+          alt="Logo"
+  />
+  <div class="menu-dropdown">
+    <button class="dropbtn">Menu</button>
+    <div class="menu-dropdown-content">
+      <a href="#">Trajets</a>
+      <a href="/login">Login</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div id="map"></div>
+
+  <div class="search-card">
+    <h2>Rechercher un trajet</h2>
+    <form id="search-form">
+      <input
+              type="text"
+              id="departure"
+              list="departure-datalist"
+              placeholder="Point de départ"
+              required
       />
-      <div class="menu-dropdown">
-        <button class="dropbtn">Menu</button>
-        <div class="menu-dropdown-content">
-          <a href="#">Trajets</a>
-          <a href="/login">Login</a>
-        </div>
-      </div>
-    </nav>
+      <datalist id="departure-datalist"></datalist>
+      <input
+              type="text"
+              id="destination"
+              list="destination-datalist"
+              placeholder="Destination"
+              required
+      />
+      <datalist id="destination-datalist"></datalist>
+      <input type="datetime-local" id="datetime" required />
+      <button type="submit">Rechercher</button>
+    </form>
+    <div id="suggestions" style="margin-top: 10px"></div>
+  </div>
+</div>
 
-    <div class="container">
-      <div id="map"></div>
+<div class="dev-profiles">
+  <div class="dev-profile">
+    <img
+            src="https://media.discordapp.net/attachments/608711485849337856/1253026941842489384/4bf4770fecb7af2331857a39deed3019.gif?ex=66877987&is=66862807&hm=e4debe020985a835fe2d9607e52ccf2b7490f30f10decc5b3ca383c56a473e61&=&width=600&height=600"
+            alt="Profil 1"
+    />
+    <p>ANOUAR.M</p>
+  </div>
+  <div class="dev-profile">
+    <img
+            src="https://media.discordapp.net/attachments/608711485849337856/1253026616666230874/5d681c241255ed22d15fdb9d97bf1720.gif?ex=66877939&is=668627b9&hm=92b724d0890e570c27ff4c0453cfc628cacb85bc69755739c6c3cfc86a8d2697&=&width=1156&height=1090"
+            alt="Profil 2"
+    />
+    <p>MALIJI.M</p>
+  </div>
+</div>
 
-      <div class="search-card">
-        <h2>Rechercher un trajet</h2>
-        <form id="search-form">
-          <input
-            type="text"
-            id="departure"
-            list="departure-datalist"
-            placeholder="Point de départ"
-            required
-          />
-          <datalist id="departure-datalist"></datalist>
-          <input
-            type="text"
-            id="destination"
-            list="destination-datalist"
-            placeholder="Destination"
-            required
-          />
-          <datalist id="destination-datalist"></datalist>
-          <input type="datetime-local" id="datetime" required />
-          <button type="submit">Rechercher</button>
-        </form>
-        <div id="suggestions" style="margin-top: 10px"></div>
-      </div>
-    </div>
+<div class="user-email" id="userEmailDisplay"></div>
 
-    <div class="dev-profiles">
-      <div class="dev-profile">
-        <img
-          src="https://media.licdn.com/dms/image/D4D03AQGY8YFSogDc0w/profile-displayphoto-shrink_800_800/0/1710519338047?e=1717027200&v=beta&t=jnPYzWc7MKApx3FFhZHTNdS4CKf2XD7ON9O3pTdZcT8"
-          alt="Profil 1"
-        />
-        <p>ANOUAR.M</p>
-      </div>
-      <div class="dev-profile">
-        <img
-          src="https://media.licdn.com/dms/image/D4D03AQHOIS-Htm-GGQ/profile-displayphoto-shrink_800_800/0/1700515250313?e=1717027200&v=beta&t=yA3SU2ATzK9KROA_8G-dDPlJnEmJyBCAhSlCxO33sVQ"
-          alt="Profil 2"
-        />
-        <p>MALIJI.M</p>
-      </div>
-    </div>
-    <!-- Contenu HTML -->
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const emailDisplay = document.getElementById("userEmailDisplay");
+    const userEmail = localStorage.getItem("userEmail");
 
-    <!-- Scripts -->
-    <!-- Bibliothèque Leaflet -->
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script>
-      // Initialize Leaflet map
-      var map = L.map("map").setView([0, 0], 2); // Initialize with default position
+    if (userEmail) {
+      emailDisplay.textContent = `Email: ${userEmail}`;
+    }
+  });
 
-      // Add OpenStreetMap tile layer
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution: "&copy; OpenStreetMap contributors",
-      }).addTo(map);
+  var map = L.map("map").setView([0, 0], 2);
 
-      // Get current location of the user
-      navigator.geolocation.getCurrentPosition(function (position) {
-        var latitude = position.coords.latitude;
-        var longitude = position.coords.longitude;
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "&copy; OpenStreetMap contributors",
+  }).addTo(map);
 
-        // Update map view to current location
-        map.setView([latitude, longitude], 13);
+  navigator.geolocation.getCurrentPosition(function (position) {
+    var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
 
-        // Add emoji marker to the map
-        var emojiIcon = L.divIcon({
-          html: '<div class="position-marker">📍</div>', // Utilisation de l'emoji et de la classe position-marker
-          iconSize: [10, 10],
-          iconAnchor: [5, 20],
-        });
+    map.setView([latitude, longitude], 13);
 
-        var marker = L.marker([latitude, longitude], { icon: emojiIcon }).addTo(
-          map
-        );
-      });
+    var emojiIcon = L.divIcon({
+      html: '<div class="position-marker">📍</div>',
+      iconSize: [10, 10],
+      iconAnchor: [5, 20],
+    });
 
-      // Form submission handling for searching a trip
-      document
-        .getElementById("search-form")
-        .addEventListener("submit", function (event) {
-          event.preventDefault(); // Prevent default form submission
+    L.marker([latitude, longitude], { icon: emojiIcon }).addTo(map);
+  });
 
-          // Retrieve input values
-          var departure = document.getElementById("departure").value;
-          var destination = document.getElementById("destination").value;
-          var datetime = document.getElementById("datetime").value;
+  document
+          .getElementById("search-form")
+          .addEventListener("submit", function (event) {
+            event.preventDefault();
 
-          // Perform validation
-          if (departure.trim() === "" || destination.trim() === "") {
-            alert("Veuillez saisir une adresse de départ et une destination.");
-            return;
-          }
+            var departure = document.getElementById("departure").value;
+            var destination = document.getElementById("destination").value;
+            var datetime = document.getElementById("datetime").value;
 
-          // Perform other actions (e.g., submit form or make API call)
-          // Here, you can handle the search functionality
-          // For now, let's log the values to the console
-          console.log("Departure:", departure);
-          console.log("Destination:", destination);
-          console.log("Date and Time:", datetime);
+            if (departure.trim() === "" || destination.trim() === "") {
+              alert("Veuillez saisir une adresse de départ et une destination.");
+              return;
+            }
 
-          // Use Nominatim API for geocoding to get coordinates for departure and destination
-          var geocodeDepartureUrl =
-            "https://nominatim.openstreetmap.org/search?format=json&q=" +
-            encodeURIComponent(departure);
-          var geocodeDestinationUrl =
-            "https://nominatim.openstreetmap.org/search?format=json&q=" +
-            encodeURIComponent(destination);
+            console.log("Departure:", departure);
+            console.log("Destination:", destination);
+            console.log("Date and Time:", datetime);
 
-          // Fetch departure coordinates
-          fetch(geocodeDepartureUrl)
-            .then(function (response) {
-              return response.json();
-            })
-            .then(function (data) {
-              if (data.length > 0) {
-                var departureCoords = [
-                  parseFloat(data[0].lat),
-                  parseFloat(data[0].lon),
-                ];
-                console.log("Departure coordinates:", departureCoords);
-              } else {
-                console.log("No results found for departure.");
-              }
-            })
-            .catch(function (error) {
-              console.log("Error fetching departure coordinates:", error);
-            });
+            var geocodeDepartureUrl =
+                    "https://nominatim.openstreetmap.org/search?format=json&q=" +
+                    encodeURIComponent(departure);
+            var geocodeDestinationUrl =
+                    "https://nominatim.openstreetmap.org/search?format=json&q=" +
+                    encodeURIComponent(destination);
 
-          // Fetch destination coordinates
-          fetch(geocodeDestinationUrl)
-            .then(function (response) {
-              return response.json();
-            })
-            .then(function (data) {
-              if (data.length > 0) {
-                var destinationCoords = [
-                  parseFloat(data[0].lat),
-                  parseFloat(data[0].lon),
-                ];
-                console.log("Destination coordinates:", destinationCoords);
-              } else {
-                console.log("No results found for destination.");
-              }
-            })
-            .catch(function (error) {
-              console.log("Error fetching destination coordinates:", error);
-            });
-        });
+            fetch(geocodeDepartureUrl)
+                    .then(function (response) {
+                      return response.json();
+                    })
+                    .then(function (data) {
+                      if (data.length > 0) {
+                        var departureCoords = [
+                          parseFloat(data[0].lat),
+                          parseFloat(data[0].lon),
+                        ];
+                        console.log("Departure coordinates:", departureCoords);
+                      } else {
+                        console.log("No results found for departure.");
+                      }
+                    })
+                    .catch(function (error) {
+                      console.log("Error fetching departure coordinates:", error);
+                    });
 
-      // Suggestions for departure and destination
-      document
-        .getElementById("departure")
-        .addEventListener("input", function (event) {
-          var departure = event.target.value;
-          getSuggestions(departure, "departure");
-        });
-
-      document
-        .getElementById("destination")
-        .addEventListener("input", function (event) {
-          var destination = event.target.value;
-          getSuggestions(destination, "destination");
-        });
-
-      function getSuggestions(query, type) {
-        var url =
-          "https://nominatim.openstreetmap.org/search?format=json&q=" +
-          encodeURIComponent(query);
-        fetch(url)
-          .then(function (response) {
-            return response.json();
-          })
-          .then(function (data) {
-            var datalist = document.getElementById(type + "-datalist");
-            datalist.innerHTML = ""; // Clear previous suggestions
-            data.forEach(function (result) {
-              var option = document.createElement("option");
-              option.value = result.display_name;
-              datalist.appendChild(option);
-            });
-          })
-          .catch(function (error) {
-            console.log("Error fetching suggestions:", error);
+            fetch(geocodeDestinationUrl)
+                    .then(function (response) {
+                      return response.json();
+                    })
+                    .then(function (data) {
+                      if (data.length > 0) {
+                        var destinationCoords = [
+                          parseFloat(data[0].lat),
+                          parseFloat(data[0].lon),
+                        ];
+                        console.log("Destination coordinates:", destinationCoords);
+                      } else {
+                        console.log("No results found for destination.");
+                      }
+                    })
+                    .catch(function (error) {
+                      console.log("Error fetching destination coordinates:", error);
+                    });
           });
-      }
-    </script>
-  </body>
+
+  document
+          .getElementById("departure")
+          .addEventListener("input", function (event) {
+            var departure = event.target.value;
+            getSuggestions(departure, "departure");
+          });
+
+  document
+          .getElementById("destination")
+          .addEventListener("input", function (event) {
+            var destination = event.target.value;
+            getSuggestions(destination, "destination");
+          });
+
+  function getSuggestions(query, type) {
+    var url =
+            "https://nominatim.openstreetmap.org/search?format=json&q=" +
+            encodeURIComponent(query);
+    fetch(url)
+            .then(function (response) {
+              return response.json();
+            })
+            .then(function (data) {
+              var datalist = document.getElementById(type + "-datalist");
+              datalist.innerHTML = "";
+              data.forEach(function (result) {
+                var option = document.createElement("option");
+                option.value = result.display_name;
+                datalist.appendChild(option);
+              });
+            })
+            .catch(function (error) {
+              console.log("Error fetching suggestions:", error);
+            });
+  }
+</script>
+
+</body>
 </html>
