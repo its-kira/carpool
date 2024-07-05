@@ -8,5 +8,6 @@ module.exports = {
   Api: {
     Login: require("./Api/auth/login.js"),
     Register: require("./Api/auth/register.js"),
+    AddRide: require("./Api/trajets/addRide.js"),
   },
 };

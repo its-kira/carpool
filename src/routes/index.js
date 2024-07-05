@@ -9,5 +9,6 @@ Router.route("/register").get(Controllers.Front.Register);
 
 Router.route("/api/register").post(Controllers.Api.Register);
 Router.route("/api/login").post(Controllers.Api.Login);
+Router.route('/api/rides').post(Controllers.Api.AddRide);
 
 module.exports = Router;

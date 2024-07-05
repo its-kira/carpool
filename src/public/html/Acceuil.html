@@ -207,7 +207,7 @@
   <div id="map"></div>
 
   <div class="search-card">
-    <h2>Rechercher un trajet</h2>
+    <h2>Proposer un trajet</h2>
     <form id="search-form">
       <input
               type="text"
@@ -226,7 +226,7 @@
       />
       <datalist id="destination-datalist"></datalist>
       <input type="datetime-local" id="datetime" required />
-      <button type="submit">Rechercher</button>
+      <button type="submit">Proposer</button>
     </form>
     <div id="suggestions" style="margin-top: 10px"></div>
   </div>
@@ -356,7 +356,8 @@
 
   document
           .getElementById("destination")
-          .addEventListener("input", function (event) {
+          .addEventListe
+  ner("input", function (event) {
             var destination = event.target.value;
             getSuggestions(destination, "destination");
           });
