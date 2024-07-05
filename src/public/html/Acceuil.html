@@ -249,10 +249,12 @@
   </div>
 </div>
 
-<div class="user-email" id="userEmailDisplay"></div>
+<div class="user-email" id="userEmailDisplay" style="margin: 20px; font-size: 18px; color: #f9f9f9;"></div>
 
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 <script>
+
+
   document.addEventListener("DOMContentLoaded", function () {
     const emailDisplay = document.getElementById("userEmailDisplay");
     const userEmail = localStorage.getItem("userEmail");

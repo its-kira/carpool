@@ -1,6 +1,7 @@
 module.exports = {
   Front: {
     Home: require("./Front/home.js"),
+    Acceuil: require("./Front/Acceuil.js"),
     Login: require("./Front/auth.js").login,
     Register: require("./Front/auth.js").register,
   },
