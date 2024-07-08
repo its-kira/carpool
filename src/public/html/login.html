@@ -1,154 +1,134 @@
 <!DOCTYPE html>
 <html lang="fr">
-<style>
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #1c1c1e;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+<head>
+  <meta charset="UTF-8">
+  <title>Connexion</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #1c1c1e;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-  .logo {
-    margin-top: 20px;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
+    .logo {
+      margin-top: 20px;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
 
-  .login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 70vh;
-  }
+    .login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 70vh;
+    }
 
-  .login-card {
-    background-color: #2c2c2e;
-    border-radius: 15px;
-    padding: 20px;
-    width: 400px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-  }
+    .login-card {
+      background-color: #2c2c2e;
+      border-radius: 15px;
+      padding: 20px;
+      width: 400px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    }
 
-  .login-card h2,
-  .login-card p {
-    margin: 0;
-    margin-bottom: 20px;
-  }
+    .login-card h2,
+    .login-card p {
+      margin: 0;
+      margin-bottom: 20px;
+    }
 
-  .input-group {
-    margin-bottom: 20px;
-  }
+    .input-group {
+      margin-bottom: 20px;
+    }
 
-  .input-group label {
-    display: block;
-    margin-bottom: 5px;
-  }
+    .input-group label {
+      display: block;
+      margin-bottom: 5px;
+    }
 
-  .input-group input {
-    width: 95%;
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
-    background-color: #3a3a3c;
-    color: white;
-  }
+    .input-group input {
+      width: 95%;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      background-color: #3a3a3c;
+      color: white;
+    }
 
-  .form-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+    .signup-prompt {
+      margin-top: 20px;
+      text-align: center;
+      transition: color 0.3s ease, transform 450ms ease-in-out;
+    }
 
-  .remember-me {
-    display: flex;
-    align-items: center;
-  }
+    .signup-prompt a {
+      color: #6e6e70;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
 
-  .remember-me input {
-    margin-right: 5px;
-  }
+    .signup-prompt:hover {
+      color: #a2a2a2;
+      transform: translateY(-2px);
+    }
 
-  .forgot-password {
-    color: #6e6e70;
-    text-decoration: none;
-    transition: color 0.3s ease, transform 450ms ease-in-out;
-  }
+    .btn {
+      margin-top: 20px;
+      margin-left: auto;
+      margin-right: auto;
+      border: none;
+      width: 12em;
+      height: 3em;
+      border-radius: 3em;
+      display: block;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      background: #1c1a1c;
+      cursor: pointer;
+      transition: all 450ms ease-in-out;
+    }
 
-  .forgot-password:hover {
-    color: #a2a2a2;
-    transform: translateY(-2px);
-  }
+    .sparkle {
+      fill: #aaaaaa;
+      transition: all 800ms ease;
+    }
 
-  .signup-prompt {
-    margin-top: 20px;
-    text-align: center;
-    transition: color 0.3s ease, transform 450ms ease-in-out;
-  }
+    .text {
+      font-weight: 600;
+      color: #aaaaaa;
+      font-size: medium;
+    }
 
-  .signup-prompt a {
-    color: #6e6e70;
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s ease;
-  }
+    .btn:hover {
+      background: linear-gradient(0deg, #a47cf3, #683fea);
+      box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.4),
+      inset 0px -4px 0px 0px rgba(0, 0, 0, 0.2),
+      0px 0px 0px 4px rgba(255, 255, 255, 0.2), 0px 0px 180px 0px #9917ff;
+      transform: translateY(-2px);
+    }
 
-  .signup-prompt:hover {
-    color: #a2a2a2;
-    transform: translateY(-2px);
-  }
+    .btn:hover .text {
+      color: white;
+    }
 
-  .btn {
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    border: none;
-    width: 12em;
-    height: 3em;
-    border-radius: 3em;
-    display: block;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
-    background: #1c1a1c;
-    cursor: pointer;
-    transition: all 450ms ease-in-out;
-  }
+    .btn:hover .sparkle {
+      fill: white;
+      transform: scale(1.2);
+    }
 
-  .sparkle {
-    fill: #aaaaaa;
-    transition: all 800ms ease;
-  }
-
-  .text {
-    font-weight: 600;
-    color: #aaaaaa;
-    font-size: medium;
-  }
-
-  .btn:hover {
-    background: linear-gradient(0deg, #a47cf3, #683fea);
-    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.4),
-    inset 0px -4px 0px 0px rgba(0, 0, 0, 0.2),
-    0px 0px 0px 4px rgba(255, 255, 255, 0.2), 0px 0px 180px 0px #9917ff;
-    transform: translateY(-2px);
-  }
-
-  .btn:hover .text {
-    color: white;
-  }
-
-  .btn:hover .sparkle {
-    fill: white;
-    transform: scale(1.2);
-  }
-</style>
-</style>
+    .carpool-btn {
+      display: none; /* Hide initially */
+    }
+  </style>
 </head>
 <body>
 <img
@@ -178,6 +158,10 @@
     </div>
   </div>
 </div>
+<button class="btn carpool-btn" onclick="window.location.href='/Acceuil'">
+  <span class="text">Carpool</span>
+</button>
+
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     document.querySelector(".login-form").addEventListener("submit", function (e) {
@@ -196,11 +180,16 @@
               .then((response) => response.json())
               .then((data) => {
                 if (data.status === 200) {
-                  // Store the email in local storage and redirect to the homepage
+                  console.log(data.message);
+                  // Store the email in local storage
                   localStorage.setItem("userEmail", email);
-                  window.location.replace("/Acceuil");
+
+                  // Remove all content except the carpool button
+                  document.querySelector(".login-container").style.display = "none";
+                  document.querySelector(".carpool-btn").style.display = "block";
                 } else {
                   alert(data.message);
+                  console.log(data.message);
                 }
               })
               .catch((error) => {
